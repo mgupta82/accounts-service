@@ -23,14 +23,14 @@ public class AccountsServiceTest {
     public void testGetAccountsForUserId() {
         List<Account> accounts = accountsService.getAccountsForUserId("testuser");
         Assertions.assertNotNull(accounts);
-        AssertionErrors.assertEquals("Invalid number of accounts",1,accounts.size());
+        AssertionErrors.assertEquals("Invalid number of accounts",2,accounts.size());
     }
 
     @Test
     public void testGetTransactionForAccount() {
         List<Transaction> transactions = accountsService.getTransactionForAccount("585309209");
         Assertions.assertNotNull(transactions);
-        AssertionErrors.assertEquals("Invalid number of transactions",1,transactions.size());
+        AssertionErrors.assertEquals("Invalid number of transactions",3,transactions.size());
     }
 
 }

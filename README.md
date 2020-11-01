@@ -12,9 +12,9 @@ This service is responsible for maintaining retrieving account details and it tr
 ### Running App
 Start Dependencies like postgres DB
 
-``sudo /usr/local/bin/docker-compose up -d``
+``docker-compose up -d``
 
-``sudo /usr/local/bin/docker-compose down``
+``docker-compose down``
 
 Start Application with dev profile
 
@@ -25,7 +25,7 @@ Check Actuator Health endpoint
 ``curl http://localhost:8090/actuator/health``
 
 ### Test using swagger-ui
-``http://localhost:8090/swagger-ui.html``
+``http://localhost:8090/swagger-ui/index.html``
 
 ### Swagger for building UI
 ``http://localhost:8090/v2/api-docs``
@@ -46,19 +46,19 @@ Build Artifacts
 
 Build Docker Images
 
-``sudo docker build . -t accounts-service:test``
+``docker build . -t accounts-service:test``
 
 Login to docker hub / artifactory
 
-``sudo docker login``
+``docker login``
 
 Tag  docker images for docker hub / artifactory
 
-``sudo docker tag  accounts-service:test docker.io/mgupta82/accounts-service:latest``
+``docker tag  accounts-service:test docker.io/mgupta82/accounts-service:latest``
 
 Publish docker image with latest tag
 
-``sudo docker push docker.io/mgupta82/accounts-service:latest``
+``docker push docker.io/mgupta82/accounts-service:latest``
 
 ## CD
 Jenkinsfile.deploy is used to run docker images created by CI along with its dependencies.
@@ -69,9 +69,9 @@ Login to ec2 instance
 
 Start Dependencies and applications (ST Env)
 
-``sudo docker run -d --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:12``
+``docker run -d --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:12``
 
-``sudo docker run -d --name accountsapp -p 80:8090 -e SPRING_PROFILES_ACTIVE=st mgupta82/accounts-service``
+``docker run -d --name accountsapp -p 80:8090 -e SPRING_PROFILES_ACTIVE=st mgupta82/accounts-service``
 
 ### SIT and PROD env
 
