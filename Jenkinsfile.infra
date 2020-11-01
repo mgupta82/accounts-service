@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages {
+        stage('Create Infra') {
+            steps {
+                sh 'aws cloudformation deploy --stack-name accounts-ec2 --template-file ./ec2-infra.yaml --parameter-overrides SSHKey=ec2web'
+            }
+        }
+    }
+}

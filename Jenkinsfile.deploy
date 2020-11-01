@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    parameters {
+        string(
+                name: 'SHORT_GIT_COMMIT',
+                defaultValue: '',
+                description: 'Git commit hash used to promote'
+        )
+    }
+    stages {
+        stage('Deploy') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2', keyFileVariable: 'PRIVATEKEY', passphraseVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    script {
+echo '*** Executing remote commands ***'
+sh """ssh -o StrictHostKeyChecking=no -i ${PRIVATEKEY} ${USERNAME}@accounts.mukeshgupta.info << EOF
+docker stop postgresdb || true
+docker stop accountsapp || true
+docker rm postgresdb || true
+docker rm accountsapp || true
+docker run -d --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:12 || true
+docker run -d --name accountsapp -p 80:8090 -e SPRING_PROFILES_ACTIVE=st mgupta82/accounts-service || true
+EOF"""
+
+                    }
+                }
+            }
+        }
+    }
+ }
