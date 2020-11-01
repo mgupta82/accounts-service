@@ -24,9 +24,6 @@ Check Actuator Health endpoint
 
 ``curl http://localhost:8090/actuator/health``
 
-### Test using swagger-ui
-``http://localhost:8090/swagger-ui/index.html``
-
 ### Swagger for building UI
 ``http://localhost:8090/v2/api-docs``
 
