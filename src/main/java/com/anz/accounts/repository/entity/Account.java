@@ -25,5 +25,5 @@ public class Account {
     private String accountType;
     private String currency;
     private Date balanceDate;
-    private BigDecimal avaialbleBalance;
+    private BigDecimal availableBalance;
 }
