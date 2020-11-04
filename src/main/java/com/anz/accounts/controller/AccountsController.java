@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +23,9 @@ public class AccountsController {
     private AccountsService accountsService;
 
     @GetMapping(path ="/accounts/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Account>> getAccounts(@PathVariable String user) {
+    public ResponseEntity<List<Account>> getAccounts(@PathVariable String user, @AuthenticationPrincipal Jwt jwt) {
         //TODO : GET User from JWT Token
+        log.info("Subject = {}",jwt.getSubject());
         List<Account> accounts = accountsService.getAccountsForUserId(user);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
